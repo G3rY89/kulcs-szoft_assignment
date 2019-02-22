@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <link rel="stylesheet" href="css/style.css" />
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:100" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:200" rel="stylesheet">
     <meta charset="UTF-8">
     <title>Kulcs-Szoft Users</title>
 </head>
@@ -19,15 +19,17 @@
             <div class="user-table">
                 <table>
                     <tr>
+                        <th>ID</th>
                         <th>Name</th>
                         <th>Email address</th>
                         <th>Action</th>
                     </tr>
                     <tr th:each="user : ${users}">
+                        <td th:text="${user.id}"></td>
                         <td th:text="${user.userName}"></td>
                         <td th:text="${user.emailAddress}"></td>
                         <td>
-                            <a th:href="@{'/remove?id=' + ${user.id}}">Remove</a>
+                            <a th:href="@{'/remove?id=' + ${user.id}}" class="action">Remove</a>
                         </td>
                     </tr>
                 </table>

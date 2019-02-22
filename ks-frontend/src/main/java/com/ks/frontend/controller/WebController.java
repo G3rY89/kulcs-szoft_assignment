@@ -71,7 +71,6 @@ public class WebController {
                 return "registration";
             }
         }
-
         return "registration";
     }
 
