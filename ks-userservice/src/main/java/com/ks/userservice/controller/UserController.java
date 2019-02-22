@@ -2,10 +2,7 @@ package com.ks.userservice.controller;
 
 import com.ks.userservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.ks.userservice.model.User;
 
 import java.util.List;
@@ -20,11 +17,13 @@ public class UserController {
         this.userRepository = service;
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public List<User> getAllUsers(){
         return userRepository.findAll();
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/add-user", method = RequestMethod.POST)
     public void addUser(@RequestParam("username") String userName, @RequestParam("emailaddress") String emailAddress ){
         userRepository.save(new User(userName, emailAddress));

@@ -1,6 +1,5 @@
 package com.ks.userservice.model;
 
-
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
