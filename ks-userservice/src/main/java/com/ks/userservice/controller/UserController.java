@@ -29,9 +29,10 @@ public class UserController {
         userRepository.save(new User(userName, emailAddress));
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
-    public void removeUser(@RequestParam("userid") Long userId){
-        userRepository.delete(userId);
+    @CrossOrigin
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public void removeUser(@RequestParam("userid") String userId){
+        userRepository.delete(Integer.parseInt(userId));
     }
 
 }

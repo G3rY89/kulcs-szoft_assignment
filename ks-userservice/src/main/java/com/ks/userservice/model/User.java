@@ -10,7 +10,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Integer id;
     @Column(nullable = false, unique = true)
     private String userName;
     @Column(nullable = false, unique = true)
@@ -24,7 +24,7 @@ public class User {
         this.emailAddress = emailAddress;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
