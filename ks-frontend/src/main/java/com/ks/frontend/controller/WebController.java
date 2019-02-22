@@ -34,7 +34,10 @@ public class WebController {
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public String showAllUsers(Model model){
         final String URL = "http://localhost:8762/ks-userservice/users";
-        ResponseEntity<List<Object>> responseEntity = restTemplate.exchange(URL, HttpMethod.GET, null, new ParameterizedTypeReference<List<Object>>() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("TOKEN", "QWxhZGRpbjpPcGVuU2VzYW1l");
+        HttpEntity<String> request = new HttpEntity<>(headers);
+        ResponseEntity<List<Object>> responseEntity = restTemplate.exchange(URL, HttpMethod.GET, request, new ParameterizedTypeReference<List<Object>>() {
         });
         List<Object> users = responseEntity.getBody();
         model.addAttribute("users", users);
@@ -45,6 +48,7 @@ public class WebController {
     public String storeUser(@RequestParam("name")String name, @RequestParam("email") String email){
         final String URL = "http://localhost:8762/ks-userservice/add-user";
         HttpHeaders headers = new HttpHeaders();
+        headers.set("TOKEN", "QWxhZGRpbjpPcGVuU2VzYW1l");
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
