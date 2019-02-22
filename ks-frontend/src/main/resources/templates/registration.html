@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <link rel="stylesheet" href="css/style.css" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat:100" rel="stylesheet">
@@ -12,12 +12,18 @@
         <header>
             <h2>Enroll a user</h2>
         </header>
-        <form class="login-form" action="/storeuser" method="post">
-            <input class="login-input" type="text" placeholder="User name" name="name">
-            <input class="login-input" type="email" placeholder="Email address" name="email">
-            <a class="login-button navigation-link" href="/">Go back</a>
-            <input type="submit" class="login-button" value="Submit">
-        </form>
+        <div th:if="${error != null}">
+            <div class="user-table">Username or email address not available</div>
+            <a class="login-button navigation-link" href="/registration">Go back</a>
+        </div>
+        <div th:if="${error == null}">
+            <form class="login-form" action="/storeuser" method="post">
+                <input class="login-input" type="text" placeholder="User name" name="name">
+                <input class="login-input" type="email" placeholder="Email address" name="email">
+                <a class="login-button navigation-link" href="/">Go back</a>
+                <input type="submit" class="login-button" value="Submit">
+            </form>
+        </div>
     </section>
 </div>
 </body>
