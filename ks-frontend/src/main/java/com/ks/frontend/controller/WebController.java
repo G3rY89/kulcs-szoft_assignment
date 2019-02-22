@@ -1,12 +1,24 @@
 package com.ks.frontend.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.List;
 
 @Controller
 public class WebController {
+
+    @Autowired
+    private RestTemplate restTemplate;
 
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -20,12 +32,28 @@ public class WebController {
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public String showAllUsers(){
+    public String showAllUsers(Model model){
+        final String URL = "http://localhost:8762/ks-userservice/users";
+        ResponseEntity<List<Object>> responseEntity = restTemplate.exchange(URL, HttpMethod.GET, null, new ParameterizedTypeReference<List<Object>>() {
+        });
+        List<Object> users = responseEntity.getBody();
+        model.addAttribute("users", users);
         return "users";
     }
 
     @RequestMapping(value = "/storeuser", method = RequestMethod.POST)
     public String storeUser(@RequestParam("name")String name, @RequestParam("email") String email){
+        final String URL = "http://localhost:8762/ks-userservice/add-user";
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+        map.add("username", name);
+        map.add("emailaddress", email);
+
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
+
+        restTemplate.postForEntity( URL, request , String.class );
         return "index";
     }
 
