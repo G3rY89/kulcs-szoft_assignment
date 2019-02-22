@@ -47,6 +47,7 @@ public class WebController {
     @RequestMapping(value = "/storeuser", method = RequestMethod.POST)
     public String storeUser(@RequestParam("name")String name, @RequestParam("email") String email){
         final String URL = "http://localhost:8762/ks-userservice/add-user";
+
         HttpHeaders headers = new HttpHeaders();
         headers.set("TOKEN", "QWxhZGRpbjpPcGVuU2VzYW1l");
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
@@ -58,7 +59,23 @@ public class WebController {
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
 
         restTemplate.postForEntity( URL, request , String.class );
-        return "index";
+        return "redirect:/";
     }
 
+    @RequestMapping(value = "/remove", method = RequestMethod.GET)
+    public String removeUser(@RequestParam("id") Integer id){
+        final String URL = "http://localhost:8762/ks-userservice/delete";
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("TOKEN", "QWxhZGRpbjpPcGVuU2VzYW1l");
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+        map.add("userid", id.toString());
+
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
+
+        restTemplate.postForEntity( URL, request , String.class );
+    return "redirect:/users";
+    }
 }

@@ -1,12 +1,40 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
+    <link rel="stylesheet" href="css/style.css" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100" rel="stylesheet">
     <meta charset="UTF-8">
     <title>Kulcs-Szoft Users</title>
 </head>
 <body>
-<li th:each="user : ${users}">
-    <spam th:text="${user.userName + user.emailAddress}"></spam>
-</li>
+<div class="login-container">
+    <section class="login" id="login">
+        <header>
+            <h2>Enrolled users</h2>
+        </header>
+        <div th:if="${#lists.isEmpty(users)}">
+            <div class="user-table"> No enrolled users</div>
+        </div>
+        <div th:if="${not #lists.isEmpty(users)}">
+            <div class="user-table">
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email address</th>
+                        <th>Action</th>
+                    </tr>
+                    <tr th:each="user : ${users}">
+                        <td th:text="${user.userName}"></td>
+                        <td th:text="${user.emailAddress}"></td>
+                        <td>
+                            <a th:href="@{'/remove?id=' + ${user.id}}">Remove</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <a class="login-button navigation-link" href="/">Go back</a>
+    </section>
+</div>
 </body>
 </html>
