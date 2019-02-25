@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat:200" rel="stylesheet">
+    <script defer src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="js/app.js" defer></script>
     <meta charset="UTF-8">
     <title>Kulcs-Szoft Users</title>
 </head>
@@ -29,7 +32,7 @@
                         <td th:text="${user.userName}"></td>
                         <td th:text="${user.emailAddress}"></td>
                         <td>
-                            <a th:href="@{'/remove?id=' + ${user.id}}" class="action">Remove</a>
+                            <input type="button" th:name="${user.id}" class="action removeuser" value="Remove">
                         </td>
                     </tr>
                 </table>
@@ -37,6 +40,12 @@
         </div>
         <a class="login-button navigation-link" href="/">Go back</a>
     </section>
+</div>
+<div class="alert alert-success" id="user-removed">
+    <strong>User successfully removed!</strong>
+</div>
+<div class="alert alert-danger" id="error">
+    <strong>Something went wrong!</strong>
 </div>
 </body>
 </html>
