@@ -15,29 +15,24 @@
         <header>
             <h2>Enrolled users</h2>
         </header>
-        <div th:if="${#lists.isEmpty(users)}">
-            <div class="user-table"> No enrolled users</div>
-        </div>
-        <div th:if="${not #lists.isEmpty(users)}">
-            <div class="user-table">
-                <table>
+            <div class="user-table" id="user-table">
+                <table id="userstable">
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
                         <th>Email address</th>
                         <th>Action</th>
                     </tr>
-                    <tr th:each="user : ${users}">
+                    <tr th:each="user : ${users}" th:id="'table' + ${user.id}">
                         <td th:text="${user.id}"></td>
                         <td th:text="${user.userName}"></td>
                         <td th:text="${user.emailAddress}"></td>
                         <td>
-                            <input type="button" th:name="${user.id}" class="action removeuser" value="Remove">
+                            <input type="button" th:name="${user.id}" class="btn removeuser btn-danger" value="Remove">
                         </td>
                     </tr>
                 </table>
             </div>
-        </div>
         <a class="login-button navigation-link" href="/">Go back</a>
     </section>
 </div>

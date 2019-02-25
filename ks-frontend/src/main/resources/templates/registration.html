@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css" />
@@ -15,16 +15,10 @@
         <header>
             <h2>Enroll a user</h2>
         </header>
-        <div th:if="${error != null}">
-            <div class="user-table error">Username or email address not available</div>
-            <a class="login-button navigation-link" href="/registration">Go back</a>
-        </div>
-        <div th:if="${error == null}">
             <input class="login-input" type="text" placeholder="User name" id="name">
             <input class="login-input" type="email" placeholder="Email address" id="email">
             <a class="login-button navigation-link" href="/">Go back</a>
-            <input type="button" class="login-button" id="storeuser" value="Submit">
-        </div>
+            <button class="login-button" id="storeuser">Submit</button>
     </section>
 </div>
 <div class="alert alert-success" id="user-added">

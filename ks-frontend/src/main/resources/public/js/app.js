@@ -3,6 +3,12 @@ $('#user-not-added').hide();
 $('#error').hide();
 $('#user-removed').hide();
 
+var checkTable = function(){
+    if(document.getElementById("userstable").rows.length == 1){
+        document.getElementById("user-table").innerText = "No enrolled users"
+    }
+}
+
 $(document).ready(function () {
     $('#storeuser').on("click", function(e) {
         $.ajax({
@@ -16,6 +22,7 @@ $(document).ready(function () {
             success: function () {
                 $('#user-added').show();
                 $('#user-added').delay(1500).fadeOut('slow');
+                $(':input').val('');
             },
             error: function (text) {
                 if(text.status == 500){
@@ -45,9 +52,8 @@ $(document).ready(function () {
             success: function () {
                 $('#user-removed').show();
                 $('#user-removed').delay(1500).fadeOut('slow');
-                setTimeout(function () {
-                    window.location.reload()
-                }, 1500);
+                $('#table' + userid).remove();
+                checkTable();
             },
             error: function () {
                 $('#error').show();
@@ -57,3 +63,5 @@ $(document).ready(function () {
         });
     });
 });
+
+checkTable();
