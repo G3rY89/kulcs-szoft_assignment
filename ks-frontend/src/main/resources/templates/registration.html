@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat:200" rel="stylesheet">
+    <script defer src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="js/app.js" defer></script>
     <meta charset="UTF-8">
     <title>Kulcs-Szoft User Registration</title>
 </head>
@@ -17,14 +20,18 @@
             <a class="login-button navigation-link" href="/registration">Go back</a>
         </div>
         <div th:if="${error == null}">
-            <form class="login-form" action="/storeuser" method="post">
-                <input class="login-input" type="text" placeholder="User name" name="name">
-                <input class="login-input" type="email" placeholder="Email address" name="email">
-                <a class="login-button navigation-link" href="/">Go back</a>
-                <input type="submit" class="login-button" value="Submit">
-            </form>
+            <input class="login-input" type="text" placeholder="User name" id="name">
+            <input class="login-input" type="email" placeholder="Email address" id="email">
+            <a class="login-button navigation-link" href="/">Go back</a>
+            <input type="button" class="login-button" id="storeuser" value="Submit">
         </div>
     </section>
+</div>
+<div class="alert alert-success" id="user-added">
+    <strong>User successfully enrolled!</strong>
+</div>
+<div class="alert alert-danger" id="user-not-added">
+    <strong>Username or email address already added!</strong>
 </div>
 </body>
 </html>

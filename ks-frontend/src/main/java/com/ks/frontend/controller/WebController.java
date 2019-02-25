@@ -10,10 +10,8 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
-import javax.xml.ws.http.HTTPException;
 import java.util.List;
 
 @Controller
@@ -44,34 +42,6 @@ public class WebController {
         List<Object> users = responseEntity.getBody();
         model.addAttribute("users", users);
         return "users";
-    }
-
-    @RequestMapping(value = "/storeuser", method = RequestMethod.POST)
-    public String storeUser(@RequestParam("name")String name, @RequestParam("email") String email, Model model){
-        final String URL = "http://localhost:8762/ks-userservice/add-user";
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("TOKEN", "QWxhZGRpbjpPcGVuU2VzYW1l");
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-
-        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-        map.add("username", name);
-        map.add("emailaddress", email);
-
-        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
-
-        try {
-            restTemplate.exchange(URL, HttpMethod.POST, request, String.class);
-            return "redirect:/";
-
-        } catch (HttpStatusCodeException e){
-            if(e.getStatusCode().value() == 500){
-                String error = "error";
-                model.addAttribute("error", error);
-                return "registration";
-            }
-        }
-        return "registration";
     }
 
     @RequestMapping(value = "/remove", method = RequestMethod.GET)
