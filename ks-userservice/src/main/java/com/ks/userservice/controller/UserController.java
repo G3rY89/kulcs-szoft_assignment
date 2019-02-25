@@ -7,6 +7,7 @@ import com.ks.userservice.model.User;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 public class UserController {
 
@@ -17,19 +18,16 @@ public class UserController {
         this.userRepository = service;
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public List<User> getAllUsers(){
         return userRepository.findAll();
     }
 
-    @CrossOrigin
-    @RequestMapping(value = "/add-user", method = RequestMethod.POST)
-    public void addUser(@RequestParam("username") String userName, @RequestParam("emailaddress") String emailAddress ){
+    @PostMapping(value = "/add-user")
+    public void addUser(@RequestParam("username") String userName, @RequestParam("emailaddress") String emailAddress){
         userRepository.save(new User(userName, emailAddress));
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public void removeUser(@RequestParam("userid") String userId){
         userRepository.delete(Integer.parseInt(userId));
