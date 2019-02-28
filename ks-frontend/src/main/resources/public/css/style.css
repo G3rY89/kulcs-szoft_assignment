@@ -232,8 +232,12 @@ td {
 }
 
 .alert {
+    border: 2px solid ;
+}
+
+#popup-container {
+    display: table;
     position: fixed;
     top: 20%;
     right: 10%;
-    border: 2px solid ;
 }
