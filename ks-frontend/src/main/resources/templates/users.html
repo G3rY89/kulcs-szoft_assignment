@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat:200" rel="stylesheet">
+    <script defer src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="js/app.js" defer></script>
     <meta charset="UTF-8">
-    <title>Kulcs-Szoft Users</title>
+    <title>Kulcs-Soft Users</title>
 </head>
 <body>
 <div class="login-container">
@@ -12,31 +15,27 @@
         <header>
             <h2>Enrolled users</h2>
         </header>
-        <div th:if="${#lists.isEmpty(users)}">
-            <div class="user-table"> No enrolled users</div>
-        </div>
-        <div th:if="${not #lists.isEmpty(users)}">
-            <div class="user-table">
-                <table>
+            <div class="user-table" id="user-table">
+                <table id="userstable">
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
                         <th>Email address</th>
                         <th>Action</th>
                     </tr>
-                    <tr th:each="user : ${users}">
+                    <tr th:each="user : ${users}" th:id="'table' + ${user.id}">
                         <td th:text="${user.id}"></td>
                         <td th:text="${user.userName}"></td>
                         <td th:text="${user.emailAddress}"></td>
                         <td>
-                            <a th:href="@{'/remove?id=' + ${user.id}}" class="action">Remove</a>
+                            <input type="button" th:name="${user.id}" class="btn removeuser btn-danger" value="Remove">
                         </td>
                     </tr>
                 </table>
             </div>
-        </div>
         <a class="login-button navigation-link" href="/">Go back</a>
     </section>
 </div>
+<div id="popup-container"></div>
 </body>
 </html>

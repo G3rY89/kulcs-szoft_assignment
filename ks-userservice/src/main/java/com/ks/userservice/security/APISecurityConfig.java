@@ -17,7 +17,7 @@ import org.springframework.security.core.AuthenticationException;
 @Order(1)
 public class APISecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Value("TOKEN")
+    @Value("token")
     private String principalRequestHeader;
 
     @Value("QWxhZGRpbjpPcGVuU2VzYW1l")
@@ -41,9 +41,9 @@ public class APISecurityConfig extends WebSecurityConfigurerAdapter {
         });
         httpSecurity.
                 antMatcher("/**").
-                csrf().disable().
+                csrf().disable()
+                .cors().and().
                 sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).
                 and().addFilter(filter).authorizeRequests().anyRequest().authenticated();
     }
-
 }
